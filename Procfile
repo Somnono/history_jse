@@ -1,0 +1,1 @@
+web: gunicorn jse_project.app:app
