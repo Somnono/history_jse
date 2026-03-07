@@ -3,13 +3,11 @@ import pandas as pd
 
 def run_analysis():
     ticker_symbol = "NPN.JO"
-    try:
-        ticker = yf.Ticker(ticker_symbol)
-        data = ticker.history(period="5y")
-        if data.empty:
-            return "<h2>No data returned from Yahoo Finance</h2>"
-    except Exception:
-        return "<h2>Data is still loading or unavailable</h2>"
+    ticker = yf.Ticker(ticker_symbol)
+    data = ticker.history(period="5y")
+
+    if data.empty:
+        return "<h2>No data returned from Yahoo Finance</h2>"
 
     # Keep only Close price
     data = data[["Close"]]
@@ -34,5 +32,4 @@ def run_analysis():
     <p>Data provided via Yahoo Finance</p>
     {html_table}
     """
-
     return html_output
