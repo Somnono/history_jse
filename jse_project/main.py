@@ -76,61 +76,65 @@ def run_analysis():
 
     # For Flask demo: show latest prices of last year’s top 10 in table
     latest_year_top10 = df[df["Date"] >= f"{current_year-1}-01-01"].groupby("Ticker").last().reset_index()
-    table_html = "<table><tr><th>Ticker</th><th>Company</th><th>Close</th><th>Market Cap</th></tr>"
+    
+    # Build HTML table manually with ZAR formatting
+    table_html = "<table><tr><th>Ticker</th><th>Company</th><th>Close</th><th>Market Cap (ZAR)</th></tr>"
     for _, row in latest_year_top10.iterrows():
-        table_html += f"<tr><td>{row['Ticker']}</td><td>{row['Company']}</td><td>{round(row['Close'],2)}</td><td>{row['MarketCapYearEnd']}</td></tr>"
+        table_html += f"<tr><td>{row['Ticker']}</td><td>{row['Company']}</td>"
+        table_html += f"<td>{round(row['Close'],2)}</td><td>{row['MarketCapYearEnd']:,} ZAR</td></tr>"
     table_html += "</table>"
 
+    # Build final HTML
     html_output = f"""
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>JSE Market Cap App</title>
-        <style>
-            body {{
-                font-family: Arial, sans-serif;
-                background-color: #f5f5f5;
-                color: #333;
-                margin: 40px;
-            }}
-            h1 {{
-                color: #2c3e50;
-                text-align: center;
-            }}
-            h2 {{
-                color: #34495e;
-                text-align: center;
-            }}
-            table {{
-                margin: 20px auto;
-                border-collapse: collapse;
-                width: 80%;
-                background-color: #fff;
-                box-shadow: 0 0 5px rgba(0,0,0,0.1);
-            }}
-            th, td {{
-                padding: 10px;
-                border: 1px solid #ccc;
-                text-align: center;
-            }}
-            th {{
-                background-color: #2c3e50;
-                color: #fff;
-            }}
-            p {{
-                text-align: center;
-                font-size: 0.9em;
-                color: #555;
-            }}
-        </style>
-    </head>
-    <body>
-        <h1>JSE Market Cap App</h1>
-        <h2>Top 10 Companies by Market Cap - Last Year ({current_year-1})</h2>
-        {table_html}
-        <p>Data provided via Yahoo Finance | Full CSV exported as jse_top10_5y.csv</p>
-    </body>
-    </html>
-    """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JSE Market Cap App</title>
+    <style>
+        body {{
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            margin: 40px;
+        }}
+        h1 {{
+            color: #2c3e50;
+            text-align: center;
+        }}
+        h2 {{
+            color: #34495e;
+            text-align: center;
+        }}
+        table {{
+            margin: 20px auto;
+            border-collapse: collapse;
+            width: 80%;
+            background-color: #fff;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+        }}
+        th, td {{
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }}
+        th {{
+            background-color: #2c3e50;
+            color: #fff;
+        }}
+        p {{
+            text-align: center;
+            font-size: 0.9em;
+            color: #555;
+        }}
+    </style>
+</head>
+<body>
+    <h1>JSE Market Cap App</h1>
+    <h2>Top 10 Companies by Market Cap - Last Year ({current_year-1})</h2>
+    {table_html}
+    <p>Data provided via Yahoo Finance | Full CSV exported as jse_top10_5y.csv</p>
+</body>
+</html>
+"""
     return html_output
