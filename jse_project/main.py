@@ -1,16 +1,16 @@
 import yfinance as yf
 import pandas as pd
 
-ticker_symbol = "NPN.JO"
+def run_analysis():
 
-ticker = yf.Ticker(ticker_symbol)
+    ticker_symbol = "NPN.JO"
 
-data = ticker.history(period="5y")
+    ticker = yf.Ticker(ticker_symbol)
 
-# Keep only Adjusted Close
-data = data[["Close"]]
+    data = ticker.history(period="5y")
 
-# Reset index so Date becomes a column
-data.reset_index(inplace=True)
+    data = data[["Close"]]
 
-print(data.head())
+    data.reset_index(inplace=True)
+
+    return data.to_html()
