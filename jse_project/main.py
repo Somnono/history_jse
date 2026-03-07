@@ -18,28 +18,23 @@ def run_analysis():
     # Format date nicely
     data["Date"] = data["Date"].dt.strftime("%Y-%m-%d")
 
-    # Show only last 10 rows for cleaner display
+    # Show only last 10 rows
     recent_data = data.tail(10)
-
-    # Add change column for coloring
     recent_data["Change"] = recent_data["Close"].diff()
 
-    # Function to color gains/losses
-    def colorize(val):
-        if val > 0:
-            return 'background-color: #d4f8d4;'  # light green for gains
-        elif val < 0:
-            return 'background-color: #f8d4d4;'  # light red for losses
-        else:
-            return ''
+    # Build HTML table manually
+    table_html = "<table><tr><th>Date</th><th>Close</th></tr>"
+    for i, row in recent_data.iterrows():
+        color = ""
+        if row["Change"] > 0:
+            color = "background-color:#d4f8d4;"  # light green
+        elif row["Change"] < 0:
+            color = "background-color:#f8d4d4;"  # light red
+        table_html += f"<tr><td>{row['Date']}</td><td style='{color}'>{round(row['Close'],2)}</td></tr>"
+    table_html += "</table>"
 
-    # Apply styling to Close column
-    styled_table = recent_data.style.applymap(colorize, subset=["Close"]).hide_index().render()
-
-    # Get latest price
     latest_price = round(data["Close"].iloc[-1], 2)
 
-    # Build full HTML page
     html_output = f"""
 <!DOCTYPE html>
 <html lang="en">
@@ -93,7 +88,7 @@ def run_analysis():
     <h2>Naspers (NPN.JO) - Last 5 Years</h2>
     <h3>Latest Price: {latest_price} ZAR</h3>
     <p>Data provided via Yahoo Finance</p>
-    {styled_table}
+    {table_html}
 </body>
 </html>
 """
