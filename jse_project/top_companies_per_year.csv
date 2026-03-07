@@ -1,0 +1,51 @@
+Year,Ticker,Company,Sector,Industry,Close,MarketCap,Rank
+2021,PRX.JO,Prosus N.V.,Consumer Cyclical,Internet Retail,60090.5078125,129855092597571.17,1.0
+2021,BTI.JO,British American Tobacco p.l.c.,Consumer Defensive,Tobacco,58427.71484375,126722889080572.28,2.0
+2021,AGL.JO,Anglo American plc,Basic Materials,Other Industrial Metals & Mining,63969.5625,68272082476387.875,3.0
+2021,NPN.JO,Naspers Limited,Consumer Cyclical,Internet Retail,49433.578125,37906348110019.31,4.0
+2021,FSR.JO,FirstRand Limited,Financial Services,Banks - Diversified,6064.828125,33913440433327.64,5.0
+2021,MTN.JO,MTN Group Limited,Communication Services,Telecom Services,17051.89453125,30806273696174.59,6.0
+2021,VOD.JO,Vodacom Group Limited,Communication Services,Telecom Services,13432.4775390625,25952746421227.492,7.0
+2021,CPI.JO,Capitec Bank Holdings Limited,Financial Services,Banks - Regional,203791.53125,23600247015794.125,8.0
+2021,SBK.JO,Standard Bank Group Limited,Financial Services,Banks - Regional,13962.4296875,22607038360509.695,9.0
+2021,ANG.JO,AngloGold Ashanti plc,Basic Materials,Gold,32856.9296875,16593235774746.875,10.0
+2022,BHG.JO,BHP Group Limited,Basic Materials,Other Industrial Metals & Mining,52585.05859375,267038057324469.03,1.0
+2022,BTI.JO,British American Tobacco p.l.c.,Consumer Defensive,Tobacco,67245.65625,145847974046354.34,2.0
+2022,PRX.JO,Prosus N.V.,Consumer Cyclical,Internet Retail,54035.37109375,116769992006348.16,3.0
+2022,AGL.JO,Anglo American plc,Basic Materials,Other Industrial Metals & Mining,65138.23046875,69519353722771.85,4.0
+2022,NPN.JO,Naspers Limited,Consumer Cyclical,Internet Retail,56481.05078125,43310447144245.45,5.0
+2022,FSR.JO,FirstRand Limited,Financial Services,Banks - Diversified,6200.8759765625,34674195827372.223,6.0
+2022,SBK.JO,Standard Bank Group Limited,Financial Services,Banks - Regional,16743.171875,27109431332972.08,7.0
+2022,VOD.JO,Vodacom Group Limited,Communication Services,Telecom Services,12250.21875,23668516839039.188,8.0
+2022,MTN.JO,MTN Group Limited,Communication Services,Telecom Services,12717.7294921875,22976089537279.086,9.0
+2022,CPI.JO,Capitec Bank Holdings Limited,Financial Services,Banks - Regional,185733.78125,21509054325227.125,10.0
+2023,BHG.JO,BHP Group Limited,Basic Materials,Other Industrial Metals & Mining,63270.8046875,321302537658749.5,1.0
+2023,CFR.JO,Compagnie Financière Richemont SA,Consumer Cyclical,Luxury Goods,256755.828125,137154364630737.45,2.0
+2023,PRX.JO,Prosus N.V.,Consumer Cyclical,Internet Retail,56038.83203125,121099454595788.31,3.0
+2023,BTI.JO,British American Tobacco p.l.c.,Consumer Defensive,Tobacco,54067.16015625,117265355280532.84,4.0
+2023,AGL.JO,Anglo American plc,Basic Materials,Other Industrial Metals & Mining,46518.12109375,49646876980893.82,5.0
+2023,NPN.JO,Naspers Limited,Consumer Cyclical,Internet Retail,62555.23046875,47968211733629.67,6.0
+2023,FSR.JO,FirstRand Limited,Financial Services,Banks - Diversified,7342.26171875,41056621937613.44,7.0
+2023,SBK.JO,Standard Bank Group Limited,Financial Services,Banks - Regional,20781.21875,33647568508795.28,8.0
+2023,GFI.JO,Gold Fields Limited,Basic Materials,Gold,27761.998046875,24847661397119.766,9.0
+2023,CPI.JO,Capitec Bank Holdings Limited,Financial Services,Banks - Regional,202554.671875,23457011491752.688,10.0
+2024,BHG.JO,BHP Group Limited,Basic Materials,Other Industrial Metals & Mining,46010.28125,233649946401557.4,1.0
+2024,PRX.JO,Prosus N.V.,Consumer Cyclical,Internet Retail,74904.875,161868818108259.25,2.0
+2024,CFR.JO,Compagnie Financière Richemont SA,Consumer Cyclical,Luxury Goods,277587.53125,148282287323477.78,3.0
+2024,BTI.JO,British American Tobacco p.l.c.,Consumer Defensive,Tobacco,67612.375,146643344181987.62,4.0
+2024,NPN.JO,Naspers Limited,Consumer Cyclical,Internet Retail,83460.375,63998564298601.5,5.0
+2024,AGL.JO,Anglo American plc,Basic Materials,Other Industrial Metals & Mining,54236.9375,57884852194615.125,6.0
+2024,FSR.JO,FirstRand Limited,Financial Services,Banks - Diversified,7591.42236328125,42449883956335.53,7.0
+2024,CPI.JO,Capitec Bank Holdings Limited,Financial Services,Banks - Regional,313374.0625,36290542781536.25,8.0
+2024,SBK.JO,Standard Bank Group Limited,Financial Services,Banks - Regional,22161.111328125,35881798878813.36,9.0
+2024,GFI.JO,Gold Fields Limited,Basic Materials,Gold,24702.591796875,22109418621946.42,10.0
+2025,BHG.JO,BHP Group Limited,Basic Materials,Other Industrial Metals & Mining,50702.7734375,257479414909731.38,1.0
+2025,PRX.JO,Prosus N.V.,Consumer Cyclical,Internet Retail,102352.0,221181829233632.0,2.0
+2025,BTI.JO,British American Tobacco p.l.c.,Consumer Defensive,Tobacco,94122.0,204139624456278.0,3.0
+2025,CFR.JO,Compagnie Financière Richemont SA,Consumer Cyclical,Luxury Goods,362704.0,193749980408656.0,4.0
+2025,NPN.JO,Naspers Limited,Consumer Cyclical,Internet Retail,110451.0,84695347047564.0,5.0
+2025,AGL.JO,Anglo American plc,Basic Materials,Other Industrial Metals & Mining,68510.0,73117904635620.0,6.0
+2025,ANG.JO,AngloGold Ashanti plc,Basic Materials,Gold,143315.0,72376196062000.0,7.0
+2025,GFI.JO,Gold Fields Limited,Basic Materials,Gold,72571.0,64952804629037.0,8.0
+2025,FSR.JO,FirstRand Limited,Financial Services,Banks - Diversified,9075.0,50745786292575.0,9.0
+2025,CPI.JO,Capitec Bank Holdings Limited,Financial Services,Banks - Regional,415580.0,48126586000240.0,10.0
