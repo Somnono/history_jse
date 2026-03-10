@@ -1,1 +1,1 @@
-web: gunicorn jse_project.app:app
+gunicorn jse_project.main:app
