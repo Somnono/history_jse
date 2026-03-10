@@ -1,140 +1,151 @@
-import yfinance as yf
+from flask import Flask
 import pandas as pd
-from datetime import datetime
+import os
 
-def run_analysis():
-    """
-    Retrieves historical JSE top 10 companies by market cap for each of the last 5 years,
-    fetches their historical daily adjusted close prices (max), and exports to CSV.
-    Returns a simplified HTML table for Flask deployment (demo purposes).
-    """
-    # Years to analyze
-    current_year = datetime.now().year
-    years = [current_year - i for i in range(5)]
+app = Flask(__name__)
 
-    # Top 40 JSE tickers as a starting pool
-    top40_tickers = [
-        "NPN.JO", "SOL.JO", "BHP.JO", "AGL.JO", "MTN.JO", "SBK.JO", "FMB.JO",
-        "GRT.JO", "REM.JO", "IMP.JO", "WHL.JO", "SHP.JO", "VOD.JO", "AGL.JO"
-        # ... extend as needed
-    ]
+DATA_PATH = "data"
 
-    all_records = []
+def load_data():
 
-    # Loop through each year to find top 10 by market cap
-    for year in years:
-        year_end_date = f"{year}-12-31"
-        ticker_caps = []
+    prices = pd.read_csv(os.path.join(DATA_PATH,"jse_prices.csv"))
+    companies = pd.read_csv(os.path.join(DATA_PATH,"jse_companies.csv"))
 
-        for ticker_symbol in top40_tickers:
-            ticker = yf.Ticker(ticker_symbol)
-            hist = ticker.history(end=year_end_date, period="1y")
-            if hist.empty:
-                continue
+    prices["Date"] = pd.to_datetime(prices["Date"])
 
-            close_price = hist["Close"].iloc[-1]  # last price of the year
+    return prices, companies
 
-            try:
-                shares_out = ticker.info.get("sharesOutstanding", None)
-            except:
-                shares_out = None
 
-            if shares_out:
-                market_cap = close_price * shares_out
-                ticker_caps.append({
-                    "Ticker": ticker_symbol,
-                    "MarketCap": market_cap,
-                    "Company": ticker.info.get("shortName", ""),
-                    "Industry": ticker.info.get("industry", ""),
-                    "Sector": ticker.info.get("sector", "")
-                })
+def build_sector_table(prices, companies):
 
-        # Sort descending by market cap, take top 10
-        top10 = sorted(ticker_caps, key=lambda x: x["MarketCap"], reverse=True)[:10]
+    latest = prices.sort_values("Date").groupby("Ticker").last().reset_index()
 
-        for t in top10:
-            # Fetch max historical adjusted close
-            hist_full = yf.Ticker(t["Ticker"]).history(period="max")[["Close"]]
-            hist_full.reset_index(inplace=True)
-            hist_full["Date"] = hist_full["Date"].dt.strftime("%Y-%m-%d")
-            hist_full["Ticker"] = t["Ticker"]
-            hist_full["Company"] = t["Company"]
-            hist_full["Industry"] = t["Industry"]
-            hist_full["Sector"] = t["Sector"]
-            hist_full["MarketCapYearEnd"] = round(t["MarketCap"], 2)
+    merged = latest.merge(companies, on="Ticker", how="left")
 
-            all_records.append(hist_full)
+    merged = merged.sort_values("MarketCap", ascending=False)
 
-    # Combine all into a single DataFrame
-    if not all_records:
-        return "<h2>No data available</h2>"
+    top = merged.head(20)
 
-    df = pd.concat(all_records, ignore_index=True)
+    table = "<table>"
+    table += "<tr><th>Ticker</th><th>Company</th><th>Sector</th><th>Close</th><th>Market Cap</th></tr>"
 
-    # Export to CSV
-    df.to_csv("jse_top10_5y.csv", index=False)
+    for _, row in top.iterrows():
 
-    # For Flask demo: show latest prices of last year’s top 10 in table
-    latest_year_top10 = df[df["Date"] >= f"{current_year-1}-01-01"].groupby("Ticker").last().reset_index()
-    
-    # Build HTML table manually with ZAR formatting
-    table_html = "<table><tr><th>Ticker</th><th>Company</th><th>Close</th><th>Market Cap (ZAR)</th></tr>"
-    for _, row in latest_year_top10.iterrows():
-        table_html += f"<tr><td>{row['Ticker']}</td><td>{row['Company']}</td>"
-        table_html += f"<td>{round(row['Close'],2)}</td><td>{row['MarketCapYearEnd']:,} ZAR</td></tr>"
-    table_html += "</table>"
+        mc = f"{int(row['MarketCap']):,}" if pd.notnull(row["MarketCap"]) else ""
 
-    # Build final HTML
-    html_output = f"""
+        table += f"""
+        <tr>
+        <td>{row['Ticker']}</td>
+        <td>{row['Company']}</td>
+        <td>{row['Sector']}</td>
+        <td>{round(row['Close'],2)}</td>
+        <td>{mc}</td>
+        </tr>
+        """
+
+    table += "</table>"
+
+    return table
+
+
+@app.route("/")
+def home():
+
+    prices, companies = load_data()
+
+    table_html = build_sector_table(prices, companies)
+
+    html = f"""
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <title>JSE Market Cap App</title>
-    <style>
-        body {{
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-            color: #333;
-            margin: 40px;
-        }}
-        h1 {{
-            color: #2c3e50;
-            text-align: center;
-        }}
-        h2 {{
-            color: #34495e;
-            text-align: center;
-        }}
-        table {{
-            margin: 20px auto;
-            border-collapse: collapse;
-            width: 80%;
-            background-color: #fff;
-            box-shadow: 0 0 5px rgba(0,0,0,0.1);
-        }}
-        th, td {{
-            padding: 10px;
-            border: 1px solid #ccc;
-            text-align: center;
-        }}
-        th {{
-            background-color: #2c3e50;
-            color: #fff;
-        }}
-        p {{
-            text-align: center;
-            font-size: 0.9em;
-            color: #555;
-        }}
-    </style>
+
+<title>JSE Market Research Dashboard</title>
+
+<style>
+
+body {{
+font-family: Arial;
+background:#f4f6f8;
+margin:40px;
+color:#333;
+}}
+
+h1 {{
+text-align:center;
+color:#1f2d3d;
+}}
+
+h2 {{
+text-align:center;
+color:#3b4b5a;
+}}
+
+.container {{
+max-width:1100px;
+margin:auto;
+}}
+
+table {{
+width:100%;
+border-collapse:collapse;
+background:white;
+box-shadow:0 3px 10px rgba(0,0,0,0.1);
+}}
+
+th,td {{
+padding:10px;
+border:1px solid #ddd;
+text-align:center;
+}}
+
+th {{
+background:#2c3e50;
+color:white;
+}}
+
+tr:nth-child(even) {{
+background:#f2f2f2;
+}}
+
+.footer {{
+text-align:center;
+margin-top:30px;
+font-size:14px;
+color:#666;
+}}
+
+</style>
+
 </head>
+
 <body>
-    <h1>JSE Market Cap App</h1>
-    <h2>Top 10 Companies by Market Cap - Last Year ({current_year-1})</h2>
-    {table_html}
-    <p>Data provided via Yahoo Finance | Full CSV exported as jse_top10_5y.csv</p>
+
+<div class="container">
+
+<h1>JSE Market Research Dashboard</h1>
+
+<h2>Top Companies by Market Capitalisation</h2>
+
+{table_html}
+
+<div class="footer">
+
+Data Source: Yahoo Finance  
+Research Dataset: Johannesburg Stock Exchange equities
+
+</div>
+
+</div>
+
 </body>
+
 </html>
 """
-    return html_output
+
+    return html
+
+
+if __name__ == "__main__":
+    app.run()
