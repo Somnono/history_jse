@@ -1,31 +1,29 @@
-Ticker,Company,Sector,Industry,MarketCap
-NPN.JO,Naspers Ltd -N-,Consumer Cyclical,Internet Retail,721214767104
-PRX.JO,Prosus N.V.,Consumer Cyclical,Internet Retail,1889076641792
-MTN.JO,MTN Group Ltd,Communication Services,Telecom Services,331984273408
-VOD.JO,Vodacom Group Ltd,Communication Services,Telecom Services,285949198336
-SOL.JO,Sasol Limited,Basic Materials,Specialty Chemicals,97275494400
-AGL.JO,Anglo American plc,Basic Materials,Other Industrial Metals & Mining,767196069888
-GLN.JO,Glencore plc,Basic Materials,Other Industrial Metals & Mining,1324528304128
-IMP.JO,Impala Platinum Hlgs Ltd,Basic Materials,Other Precious Metals & Mining,240448356352
-AMS.JO,,,,
-BHG.JO,BHP Group Limited,Basic Materials,Other Industrial Metals & Mining,3154112937984
-SBK.JO,Standard Bank Group Ltd,Financial Services,Banks - Regional,477806297088
-ABG.JO,Absa Group Limited,Financial Services,Banks - Regional,195594600448
-NED.JO,Nedbank Group Ltd,Financial Services,Banks - Regional,128175489024
-FSR.JO,Firstrand Ltd,Financial Services,Banks - Diversified,506507264000
-REM.JO,Remgro Ltd,Financial Services,Asset Management,99048792064
-SHP.JO,Shoprite Holdings Ltd,Consumer Cyclical,Department Stores,142614183936
-WHL.JO,Woolworths Holdings Ltd,Consumer Cyclical,Department Stores,46501138432
-MRP.JO,Mr Price Group Ltd,Consumer Cyclical,Apparel Retail,45009137664
-TFG.JO,The Foschini Group Limited,Consumer Cyclical,Department Stores,24637220864
-TRU.JO,Truworths Int Ltd,Consumer Cyclical,Apparel Retail,20969996288
-GRT.JO,Growthpoint Prop Ltd,Real Estate,REIT - Diversified,57392746496
-RDF.JO,Redefine Properties Ltd,Real Estate,REIT - Diversified,43286478848
-VKE.JO,Vukile Property Fund Ltd,Real Estate,REIT - Retail,31489148928
-SLM.JO,Sanlam Limited,Financial Services,Insurance - Life,200456519680
-BVT.JO,Bidvest Ltd,Industrials,Conglomerates,78687412224
-CLS.JO,Clicks Group Ltd,Healthcare,Pharmaceutical Retailers,69357846528
-AFE.JO,AECI Limited,Basic Materials,Specialty Chemicals,11430742016
-AIP.JO,,,,
-NTC.JO,Netcare Limited,Healthcare,Medical Care Facilities,19354980352
-LHC.JO,Life Healthc Grp Hldgs Ltd,Healthcare,Medical Care Facilities,15970284544
+Ticker,Company,Sector,Industry,MarketCap,Close,Volume,Date
+NPN.JO,Naspers Ltd -N-,Consumer Cyclical,Internet Retail,714871799808,92992.0,1257897,2026-03-11 00:00:00+02:00
+PRX.JO,Prosus N.V.,Consumer Cyclical,Internet Retail,1884949053440,87226.0,1103939,2026-03-11 00:00:00+02:00
+MTN.JO,MTN Group Ltd,Communication Services,Telecom Services,333176668160,18442.0,3347191,2026-03-11 00:00:00+02:00
+VOD.JO,Vodacom Group Ltd,Communication Services,Telecom Services,284191031296,14709.0,1603029,2026-03-11 00:00:00+02:00
+SOL.JO,Sasol Limited,Basic Materials,Specialty Chemicals,102222790656,16034.0,4019178,2026-03-11 00:00:00+02:00
+AGL.JO,Anglo American plc,Basic Materials,Other Industrial Metals & Mining,782218297344,73003.0,864534,2026-03-11 00:00:00+02:00
+GLN.JO,Glencore plc,Basic Materials,Other Industrial Metals & Mining,1341137616896,11466.0,2702699,2026-03-11 00:00:00+02:00
+IMP.JO,Impala Platinum Hlgs Ltd,Basic Materials,Other Precious Metals & Mining,242825396224,27071.0,2804964,2026-03-11 00:00:00+02:00
+BHG.JO,BHP Group Limited,Basic Materials,Other Industrial Metals & Mining,3153588387840,60137.0,388307,2026-03-11 00:00:00+02:00
+SBK.JO,Standard Bank Group Ltd,Financial Services,Banks - Regional,470131605504,29036.0,1645064,2026-03-11 00:00:00+02:00
+ABG.JO,Absa Group Limited,Financial Services,Banks - Regional,194756837376,23480.0,2088928,2026-03-11 00:00:00+02:00
+NED.JO,Nedbank Group Ltd,Financial Services,Banks - Regional,125648551936,27000.0,1043042,2026-03-11 00:00:00+02:00
+FSR.JO,Firstrand Ltd,Financial Services,Banks - Diversified,498678726656,8917.0,14268574,2026-03-11 00:00:00+02:00
+REM.JO,Remgro Ltd,Financial Services,Asset Management,98420498432,17701.0,633645,2026-03-11 00:00:00+02:00
+SHP.JO,Shoprite Holdings Ltd,Consumer Cyclical,Department Stores,141786988544,26225.0,1014621,2026-03-11 00:00:00+02:00
+WHL.JO,Woolworths Holdings Ltd,Consumer Cyclical,Department Stores,46126702592,5174.0,3360342,2026-03-11 00:00:00+02:00
+MRP.JO,Mr Price Group Ltd,Consumer Cyclical,Apparel Retail,44202459136,17151.0,1321900,2026-03-11 00:00:00+02:00
+TFG.JO,The Foschini Group Limited,Consumer Cyclical,Department Stores,24437886976,7601.0,829781,2026-03-11 00:00:00+02:00
+TRU.JO,Truworths Int Ltd,Consumer Cyclical,Apparel Retail,20687071232,5557.0,1910624,2026-03-11 00:00:00+02:00
+GRT.JO,Growthpoint Prop Ltd,Real Estate,REIT - Diversified,55906414592,1655.0,9297551,2026-03-11 00:00:00+02:00
+RDF.JO,Redefine Properties Ltd,Real Estate,REIT - Diversified,42522193920,612.0,17316236,2026-03-11 00:00:00+02:00
+VKE.JO,Vukile Property Fund Ltd,Real Estate,REIT - Retail,31215329280,2280.0,1875952,2026-03-11 00:00:00+02:00
+SLM.JO,Sanlam Limited,Financial Services,Insurance - Life,197011898368,9437.0,2852754,2026-03-11 00:00:00+02:00
+BVT.JO,Bidvest Ltd,Industrials,Conglomerates,78908334080,23216.0,526999,2026-03-11 00:00:00+02:00
+CLS.JO,Clicks Group Ltd,Healthcare,Pharmaceutical Retailers,68775559168,29410.0,404769,2026-03-11 00:00:00+02:00
+AFE.JO,AECI Limited,Basic Materials,Specialty Chemicals,11477169152,10877.0,154665,2026-03-11 00:00:00+02:00
+NTC.JO,Netcare Limited,Healthcare,Medical Care Facilities,19152373760,1607.0,1314988,2026-03-11 00:00:00+02:00
+LHC.JO,Life Healthc Grp Hldgs Ltd,Healthcare,Medical Care Facilities,15884423168,1110.0,1785782,2026-03-11 00:00:00+02:00
