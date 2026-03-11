@@ -1,58 +1,50 @@
-"""
-JSE Universe definition
-
-This file defines the stock universe used for research.
-The list combines companies from the JSE Top 40 and other
-major liquid companies on the Johannesburg Stock Exchange.
-"""
-
 JSE_UNIVERSE = [
 
-    # Technology
-    "NPN.JO",   # Naspers
-    "PRX.JO",   # Prosus
+# Technology
+"NPN.JO","PRX.JO",
 
-    # Telecom
-    "MTN.JO",
-    "VOD.JO",
+# Telecom
+"MTN.JO","VOD.JO",
 
-    # Energy
-    "SOL.JO",   # Sasol
+# Energy
+"SOL.JO","SAS.JO",
 
-    # Basic Materials
-    "AGL.JO",   # Anglo American
-    "GLN.JO",   # Glencore
-    "IMP.JO",   # Impala Platinum
-    "AMS.JO",   # Anglo American Platinum
-    "BHG.JO",   # BHP Group
+# Mining / Materials
+"BHG.JO","AGL.JO","GLN.JO","IMP.JO","AMS.JO",
+"ANG.JO","HAR.JO","KIO.JO","S32.JO","EXX.JO",
 
-    # Financials
-    "SBK.JO",   # Standard Bank
-    "ABG.JO",   # Absa
-    "NED.JO",   # Nedbank
-    "FSR.JO",   # FirstRand
-    "REM.JO",   # Remgro
+# Banks
+"SBK.JO","ABG.JO","NED.JO","FSR.JO","CPI.JO",
 
-    # Retail / Consumer
-    "SHP.JO",
-    "WHL.JO",
-    "MRP.JO",
-    "TFG.JO",
-    "TRU.JO",
+# Financial Services
+"SLM.JO","REM.JO","DSY.JO","OMU.JO","OUT.JO",
 
-    # Real Estate
-    "GRT.JO",
-    "RDF.JO",
-    "VKE.JO",
-    "SLM.JO",
+# Retail
+"SHP.JO","WHL.JO","MRP.JO","TFG.JO","TRU.JO",
+"PIK.JO","SPP.JO","FOS.JO","WBO.JO",
 
-    # Industrials
-    "BVT.JO",
-    "CLS.JO",
-    "AFE.JO",
-    "AIP.JO",
+# Property
+"GRT.JO","RDF.JO","VKE.JO","FFB.JO","EPP.JO",
+"RES.JO","ATT.JO","SAP.JO",
 
-    # Healthcare
-    "NTC.JO",
-    "LHC.JO",
+# Industrials
+"BVT.JO","AFE.JO","NTC.JO","MUR.JO","AVI.JO",
+"BID.JO","BAW.JO","KAP.JO","RLO.JO",
+
+# Healthcare
+"CLS.JO","LHC.JO","APH.JO",
+
+# Agriculture / Food
+"RCL.JO","TBS.JO","PPC.JO",
+
+# Additional liquid JSE names
+"INL.JO","INP.JO","BTI.JO","ANH.JO","NPH.JO",
+"MEI.JO","MTM.JO","ADR.JO","AEL.JO","ARL.JO",
+"BCF.JO","CML.JO","DCP.JO","DTC.JO","ELI.JO",
+"EMI.JO","EQU.JO","FBR.JO","FGL.JO","GND.JO",
+"HCI.JO","ILU.JO","IPL.JO","ITU.JO","KST.JO",
+"LEW.JO","LON.JO","MCG.JO","MNP.JO","MPT.JO",
+"N91.JO","NRP.JO","PFG.JO","PPE.JO","QLT.JO",
+"RBP.JO","RNI.JO","SAC.JO","SEA.JO","SHC.JO",
+"SNT.JO","TCP.JO","TKG.JO","TSH.JO","VUN.JO"
 ]
