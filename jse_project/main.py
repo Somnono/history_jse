@@ -51,70 +51,75 @@ def market_overview(prices):
 
 def top_companies(prices, companies):
 
-    merged = companies.sort_values("MarketCap", ascending=False)
+    df = companies.copy()
 
-    top = merged.head(10)
+    # Sort entire market by market cap
+    top_market = df.sort_values("MarketCap", ascending=False).head(10)
 
-    table = """
-    <h2>Top Companies by Market Capitalisation</h2>
+    html = """
+    <h2>Top 10 Companies by Market Capitalisation</h2>
     <table>
-    <tr>
-    <th>Ticker</th>
-    <th>Company</th>
-    <th>Sector</th>
-    <th>Market Cap (ZAR)</th>
-    </tr>
+        <tr>
+            <th>Ticker</th>
+            <th>Company</th>
+            <th>Sector</th>
+            <th>Market Cap (ZAR)</th>
+        </tr>
     """
 
-    for _, row in top.iterrows():
-
-        mc = f"{int(row['MarketCap']):,}" if pd.notnull(row["MarketCap"]) else ""
-
-        table += f"""
+    for _, row in top_market.iterrows():
+        html += f"""
         <tr>
-        <td>{row['Ticker']}</td>
-        <td>{row['Company']}</td>
-        <td>{row['Sector']}</td>
-        <td>{mc}</td>
+            <td>{row['Ticker']}</td>
+            <td>{row['Company']}</td>
+            <td>{row['Sector']}</td>
+            <td>{int(row['MarketCap']):,}</td>
         </tr>
         """
 
-    table += "</table>"
+    html += "</table>"
 
-    return table
+    return html
 
 
-def sector_leaders(prices, companies):
+def sector_leaders(companies):
 
-    sector_top = companies.sort_values("MarketCap", ascending=False).groupby("Sector").head(1)
+    df = companies.copy()
 
-    table = """
-    <h2>Top Company per Sector</h2>
-    <table>
-    <tr>
-    <th>Sector</th>
-    <th>Ticker</th>
-    <th>Company</th>
-    <th>Market Cap</th>
-    </tr>
-    """
+    html = "<h2>Top 10 Companies per Sector</h2>"
 
-    for _, row in sector_top.iterrows():
+    sectors = df["Sector"].dropna().unique()
 
-        mc = f"{int(row['MarketCap']):,}" if pd.notnull(row["MarketCap"]) else ""
+    for sector in sectors:
 
-        table += f"""
-        <tr>
-        <td>{row['Sector']}</td>
-        <td>{row['Ticker']}</td>
-        <td>{row['Company']}</td>
-        <td>{mc}</td>
-        </tr>
+        sector_df = df[df["Sector"] == sector]
+
+        top_sector = sector_df.sort_values(
+            "MarketCap", ascending=False
+        ).head(10)
+
+        html += f"<h3>{sector}</h3>"
+        html += """
+        <table>
+            <tr>
+                <th>Ticker</th>
+                <th>Company</th>
+                <th>Market Cap</th>
+            </tr>
         """
 
-    table += "</table>"
+        for _, row in top_sector.iterrows():
+            html += f"""
+            <tr>
+                <td>{row['Ticker']}</td>
+                <td>{row['Company']}</td>
+                <td>{int(row['MarketCap']):,}</td>
+            </tr>
+            """
 
-    return table
+        html += "</table>"
+
+    return html
 
 
 @app.route("/")
