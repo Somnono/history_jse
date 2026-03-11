@@ -21,20 +21,12 @@ def load_data():
 
 def market_overview(prices):
 
-    latest = prices
-    latest_date = "Latest Dataset"
-
-    avg_close = round(latest["Close"].mean(), 2)
-    total_volume = int(latest["Volume"].sum())
-    total_stocks = latest["Ticker"].nunique()
+    total_stocks = prices["Ticker"].nunique()
+    total_sectors = prices["Sector"].nunique()
+    total_marketcap = int(prices["MarketCap"].sum())
 
     html = f"""
     <div class="overview">
-
-        <div class="card">
-            <h3>Trading Date</h3>
-            <p>{latest_date.date()}</p>
-        </div>
 
         <div class="card">
             <h3>Stocks Tracked</h3>
@@ -42,13 +34,13 @@ def market_overview(prices):
         </div>
 
         <div class="card">
-            <h3>Average Price</h3>
-            <p>{avg_close} ZAR</p>
+            <h3>Sectors</h3>
+            <p>{total_sectors}</p>
         </div>
 
         <div class="card">
-            <h3>Total Volume</h3>
-            <p>{total_volume:,}</p>
+            <h3>Total Market Cap</h3>
+            <p>{total_marketcap:,} ZAR</p>
         </div>
 
     </div>
