@@ -1,29 +1,87 @@
 Ticker,Company,Sector,Industry,MarketCap,Close,Volume,Date
-NPN.JO,Naspers Ltd -N-,Consumer Cyclical,Internet Retail,714871799808,92992.0,1257897,2026-03-11 00:00:00+02:00
-PRX.JO,Prosus N.V.,Consumer Cyclical,Internet Retail,1884949053440,87226.0,1103939,2026-03-11 00:00:00+02:00
-MTN.JO,MTN Group Ltd,Communication Services,Telecom Services,333176668160,18442.0,3347191,2026-03-11 00:00:00+02:00
-VOD.JO,Vodacom Group Ltd,Communication Services,Telecom Services,284191031296,14709.0,1603029,2026-03-11 00:00:00+02:00
-SOL.JO,Sasol Limited,Basic Materials,Specialty Chemicals,102222790656,16034.0,4019178,2026-03-11 00:00:00+02:00
-AGL.JO,Anglo American plc,Basic Materials,Other Industrial Metals & Mining,782218297344,73003.0,864534,2026-03-11 00:00:00+02:00
-GLN.JO,Glencore plc,Basic Materials,Other Industrial Metals & Mining,1341137616896,11466.0,2702699,2026-03-11 00:00:00+02:00
-IMP.JO,Impala Platinum Hlgs Ltd,Basic Materials,Other Precious Metals & Mining,242825396224,27071.0,2804964,2026-03-11 00:00:00+02:00
-BHG.JO,BHP Group Limited,Basic Materials,Other Industrial Metals & Mining,3153588387840,60137.0,388307,2026-03-11 00:00:00+02:00
-SBK.JO,Standard Bank Group Ltd,Financial Services,Banks - Regional,470131605504,29036.0,1645064,2026-03-11 00:00:00+02:00
-ABG.JO,Absa Group Limited,Financial Services,Banks - Regional,194756837376,23480.0,2088928,2026-03-11 00:00:00+02:00
-NED.JO,Nedbank Group Ltd,Financial Services,Banks - Regional,125648551936,27000.0,1043042,2026-03-11 00:00:00+02:00
-FSR.JO,Firstrand Ltd,Financial Services,Banks - Diversified,498678726656,8917.0,14268574,2026-03-11 00:00:00+02:00
-REM.JO,Remgro Ltd,Financial Services,Asset Management,98420498432,17701.0,633645,2026-03-11 00:00:00+02:00
-SHP.JO,Shoprite Holdings Ltd,Consumer Cyclical,Department Stores,141786988544,26225.0,1014621,2026-03-11 00:00:00+02:00
-WHL.JO,Woolworths Holdings Ltd,Consumer Cyclical,Department Stores,46126702592,5174.0,3360342,2026-03-11 00:00:00+02:00
-MRP.JO,Mr Price Group Ltd,Consumer Cyclical,Apparel Retail,44202459136,17151.0,1321900,2026-03-11 00:00:00+02:00
-TFG.JO,The Foschini Group Limited,Consumer Cyclical,Department Stores,24437886976,7601.0,829781,2026-03-11 00:00:00+02:00
-TRU.JO,Truworths Int Ltd,Consumer Cyclical,Apparel Retail,20687071232,5557.0,1910624,2026-03-11 00:00:00+02:00
-GRT.JO,Growthpoint Prop Ltd,Real Estate,REIT - Diversified,55906414592,1655.0,9297551,2026-03-11 00:00:00+02:00
-RDF.JO,Redefine Properties Ltd,Real Estate,REIT - Diversified,42522193920,612.0,17316236,2026-03-11 00:00:00+02:00
-VKE.JO,Vukile Property Fund Ltd,Real Estate,REIT - Retail,31215329280,2280.0,1875952,2026-03-11 00:00:00+02:00
-SLM.JO,Sanlam Limited,Financial Services,Insurance - Life,197011898368,9437.0,2852754,2026-03-11 00:00:00+02:00
-BVT.JO,Bidvest Ltd,Industrials,Conglomerates,78908334080,23216.0,526999,2026-03-11 00:00:00+02:00
-CLS.JO,Clicks Group Ltd,Healthcare,Pharmaceutical Retailers,68775559168,29410.0,404769,2026-03-11 00:00:00+02:00
-AFE.JO,AECI Limited,Basic Materials,Specialty Chemicals,11477169152,10877.0,154665,2026-03-11 00:00:00+02:00
-NTC.JO,Netcare Limited,Healthcare,Medical Care Facilities,19152373760,1607.0,1314988,2026-03-11 00:00:00+02:00
-LHC.JO,Life Healthc Grp Hldgs Ltd,Healthcare,Medical Care Facilities,15884423168,1110.0,1785782,2026-03-11 00:00:00+02:00
+NPN.JO,Naspers Ltd -N-,Consumer Cyclical,Internet Retail,715940495360,93119.0,1280476,2026-03-11 00:00:00+02:00
+PRX.JO,Prosus N.V.,Consumer Cyclical,Internet Retail,1886613012480,87303.0,1112343,2026-03-11 00:00:00+02:00
+MTN.JO,MTN Group Ltd,Communication Services,Telecom Services,333501825024,18460.0,3406274,2026-03-11 00:00:00+02:00
+VOD.JO,Vodacom Group Ltd,Communication Services,Telecom Services,284345597952,14717.0,1642296,2026-03-11 00:00:00+02:00
+SOL.JO,Sasol Limited,Basic Materials,Specialty Chemicals,102994206720,16155.0,4096474,2026-03-11 00:00:00+02:00
+BHG.JO,BHP Group Limited,Basic Materials,Other Industrial Metals & Mining,3154007818240,60145.0,393130,2026-03-11 00:00:00+02:00
+AGL.JO,Anglo American plc,Basic Materials,Other Industrial Metals & Mining,784125526016,73181.0,882541,2026-03-11 00:00:00+02:00
+GLN.JO,Glencore plc,Basic Materials,Other Industrial Metals & Mining,1343710822400,11488.0,4435208,2026-03-11 00:00:00+02:00
+IMP.JO,Impala Platinum Hlgs Ltd,Basic Materials,Other Precious Metals & Mining,243982516224,27200.0,2868692,2026-03-11 00:00:00+02:00
+ANG.JO,AngloGold Ashanti plc,Basic Materials,Gold,892044640256,171150.0,746676,2026-03-11 00:00:00+02:00
+HAR.JO,Harmony GM Co Ltd,Basic Materials,Gold,172578635776,27631.0,2944137,2026-03-11 00:00:00+02:00
+KIO.JO,Kumba Iron Ore Ltd,Basic Materials,Steel,103125475328,32196.0,201311,2026-03-11 00:00:00+02:00
+S32.JO,South32 Limited,Basic Materials,Other Industrial Metals & Mining,229550276608,5090.0,172304,2026-03-11 00:00:00+02:00
+EXX.JO,Exxaro Resources Ltd,Energy,Thermal Coal,49152339968,20350.0,1136964,2026-03-11 00:00:00+02:00
+SBK.JO,Standard Bank Group Ltd,Financial Services,Banks - Regional,471086891008,29095.0,1672180,2026-03-11 00:00:00+02:00
+ABG.JO,Absa Group Limited,Financial Services,Banks - Regional,195312566272,23547.0,2126011,2026-03-11 00:00:00+02:00
+NED.JO,Nedbank Group Ltd,Financial Services,Banks - Regional,126048763904,27086.0,1061513,2026-03-11 00:00:00+02:00
+FSR.JO,Firstrand Ltd,Financial Services,Banks - Diversified,500244447232,8946.0,14634414,2026-03-11 00:00:00+02:00
+CPI.JO,Capitec Bank Hldgs Ltd,Financial Services,Banks - Regional,491433590784,424360.0,232161,2026-03-11 00:00:00+02:00
+SLM.JO,Sanlam Limited,Financial Services,Insurance - Life,197679939584,9469.0,2919373,2026-03-11 00:00:00+02:00
+REM.JO,Remgro Ltd,Financial Services,Asset Management,98603974656,17734.0,646270,2026-03-11 00:00:00+02:00
+DSY.JO,Discovery Ltd,Financial Services,Insurance - Life,168387969024,25160.0,1060851,2026-03-11 00:00:00+02:00
+OMU.JO,Old Mutual Limited,Financial Services,Financial Conglomerates,63085490176,1501.0,17806768,2026-03-11 00:00:00+02:00
+OUT.JO,OUTsurance Group Limited,Financial Services,Insurance - Diversified,111258419200,7200.0,3652084,2026-03-11 00:00:00+02:00
+SHP.JO,Shoprite Holdings Ltd,Consumer Cyclical,Department Stores,141770768384,26222.0,1053839,2026-03-11 00:00:00+02:00
+WHL.JO,Woolworths Holdings Ltd,Consumer Cyclical,Department Stores,46322831360,5196.0,3429867,2026-03-11 00:00:00+02:00
+MRP.JO,Mr Price Group Ltd,Consumer Cyclical,Apparel Retail,44212764672,17155.0,1382525,2026-03-11 00:00:00+02:00
+TFG.JO,The Foschini Group Limited,Consumer Cyclical,Department Stores,24450748416,7605.0,862114,2026-03-11 00:00:00+02:00
+TRU.JO,Truworths Int Ltd,Consumer Cyclical,Apparel Retail,20716853248,5565.0,1966752,2026-03-11 00:00:00+02:00
+PIK.JO,Pick n Pay Stores Ltd,Consumer Cyclical,Department Stores,13424601088,1833.0,2172147,2026-03-11 00:00:00+02:00
+SPP.JO,The Spar Group Ltd,Consumer Defensive,Food Distribution,12406304768,6442.0,413486,2026-03-11 00:00:00+02:00
+WBO.JO,Wilson Bayly Hlm-Ovc Ltd,Industrials,Engineering & Construction,8443445760,16251.0,132492,2026-03-11 00:00:00+02:00
+GRT.JO,Growthpoint Prop Ltd,Real Estate,REIT - Diversified,56075317248,1660.0,9470397,2026-03-11 00:00:00+02:00
+RDF.JO,Redefine Properties Ltd,Real Estate,REIT - Diversified,42661150720,614.0,28483474,2026-03-11 00:00:00+02:00
+VKE.JO,Vukile Property Fund Ltd,Real Estate,REIT - Retail,31242708992,2282.0,1898753,2026-03-11 00:00:00+02:00
+FFB.JO,Fortress Real Est Inv B,Real Estate,Real Estate Services,28019759104,2300.0,1113932,2026-03-11 00:00:00+02:00
+RES.JO,Resilient REIT Limited,Real Estate,REIT - Retail,26820747264,8030.0,412022,2026-03-11 00:00:00+02:00
+ATT.JO,Attacq Limited,Real Estate,REIT - Diversified,11917095936,1703.0,1099643,2026-03-11 00:00:00+02:00
+SAP.JO,Sappi Ltd,Basic Materials,Paper & Paper Products,10217197568,1683.0,2422510,2026-03-11 00:00:00+02:00
+BVT.JO,Bidvest Ltd,Industrials,Conglomerates,79183642624,23297.0,535223,2026-03-11 00:00:00+02:00
+AFE.JO,AECI Limited,Basic Materials,Specialty Chemicals,11505658880,10904.0,156943,2026-03-11 00:00:00+02:00
+NTC.JO,Netcare Limited,Healthcare,Medical Care Facilities,19164291072,1608.0,1338666,2026-03-11 00:00:00+02:00
+AVI.JO,AVI Ltd,Consumer Defensive,Packaged Foods,34724184064,10411.0,1051289,2026-03-11 00:00:00+02:00
+BID.JO,BID Corporation Ltd,Consumer Defensive,Food Distribution,139282497536,41455.0,371486,2026-03-11 00:00:00+02:00
+KAP.JO,KAP Limited,Industrials,Conglomerates,4538886144,181.0,4755029,2026-03-11 00:00:00+02:00
+RLO.JO,Reunert Ltd,Industrials,Electrical Equipment & Parts,10163330048,6468.0,664686,2026-03-11 00:00:00+02:00
+CLS.JO,Clicks Group Ltd,Healthcare,Pharmaceutical Retailers,68869095424,29450.0,411654,2026-03-11 00:00:00+02:00
+LHC.JO,Life Healthc Grp Hldgs Ltd,Healthcare,Medical Care Facilities,15898733568,1111.0,1809577,2026-03-11 00:00:00+02:00
+APH.JO,Alphamin Resources Corp,Basic Materials,Other Industrial Metals & Mining,20153305088,1570.0,17912,2026-03-11 00:00:00+02:00
+RCL.JO,RCL Foods Limited,Consumer Defensive,Packaged Foods,7970494976,887.0,747,2026-03-11 00:00:00+02:00
+TBS.JO,Tiger Brands Ltd,Consumer Defensive,Packaged Foods,44988162048,29702.0,182176,2026-03-11 00:00:00+02:00
+PPC.JO,PPC Limited,Basic Materials,Building Materials,8563113472,582.0,2556816,2026-03-11 00:00:00+02:00
+INL.JO,Investec Ltd,Financial Services,Banks - Regional,117094473728,13161.0,418271,2026-03-11 00:00:00+02:00
+INP.JO,Investec plc,Financial Services,Capital Markets,85376450560,13259.0,818766,2026-03-11 00:00:00+02:00
+BTI.JO,British American Tob plc,Consumer Defensive,Tobacco,2088710701056,96128.0,335192,2026-03-11 00:00:00+02:00
+ANH.JO,Anheuser-Busch InBev SA NV,Consumer Defensive,Beverages - Brewers,2326013149184,118844.0,127770,2026-03-11 00:00:00+02:00
+NPH.JO,Northam Platinum Hldgs Ltd,Basic Materials,Other Precious Metals & Mining,152056430592,38620.0,1105772,2026-03-11 00:00:00+02:00
+MTM.JO,Momentum Group Limited,Financial Services,Insurance - Diversified,47495208960,3687.0,924116,2026-03-11 00:00:00+02:00
+ADR.JO,Adcorp Holdings Limited,Industrials,Staffing & Employment Services,645620480,619.0,28124,2026-03-11 00:00:00+02:00
+AEL.JO,Altron Limited A,Technology,Information Technology Services,7926238208,2069.0,31301,2026-03-11 00:00:00+02:00
+ARL.JO,Astral Foods Ltd,Consumer Defensive,Farm Products,10054375424,26097.0,139600,2026-03-11 00:00:00+02:00
+BCF.JO,Bowler Metcalf Ltd,Consumer Cyclical,Packaging & Containers,976408640,1425.0,1618,2026-03-11 00:00:00+02:00
+CML.JO,Coronation Fund Mngrs Ld,Financial Services,Asset Management,15836530688,4530.0,212991,2026-03-11 00:00:00+02:00
+DCP.JO,Dis-Chem Pharmacies Ltd,Healthcare,Pharmaceutical Retailers,29265491968,3415.0,238136,2026-03-11 00:00:00+02:00
+DTC.JO,Datatec Ltd,Technology,Information Technology Services,16745679872,6919.0,317979,2026-03-11 00:00:00+02:00
+EMI.JO,Emira Property Fund Ltd,Real Estate,REIT - Diversified,6283367424,1307.0,61185,2026-03-11 00:00:00+02:00
+EQU.JO,Equites Prop Fund Ltd,Real Estate,REIT - Industrial,14665880576,1691.0,711245,2026-03-11 00:00:00+02:00
+FBR.JO,Famous Brands Ltd,Consumer Defensive,Food Distribution,5050195456,5040.0,111345,2026-03-11 00:00:00+02:00
+FGL.JO,Finbond Group Ltd,Financial Services,Mortgage Finance,593078080,115.0,883420,2026-03-11 00:00:00+02:00
+GND.JO,Grindrod Ltd,Industrials,Integrated Freight & Logistics,11697071104,1745.0,507434,2026-03-11 00:00:00+02:00
+HCI.JO,Hosken Cons Inv Ltd,Industrials,Conglomerates,12205070336,16016.0,11764,2026-03-11 00:00:00+02:00
+KST.JO,PSG Fin Services Ltd,Financial Services,Asset Management,32977594368,2649.0,925522,2026-03-11 00:00:00+02:00
+LEW.JO,Lewis Group Ltd,Consumer Cyclical,Specialty Retail,4693917184,9019.0,8145,2026-03-11 00:00:00+02:00
+MNP.JO,Mondi plc,Basic Materials,Paper & Paper Products,82714681344,18514.0,558247,2026-03-11 00:00:00+02:00
+MPT.JO,Mpact Limited,Consumer Cyclical,Packaging & Containers,3220839168,2200.0,128061,2026-03-11 00:00:00+02:00
+N91.JO,Ninety One plc,Financial Services,Asset Management,46668914688,5069.0,295396,2026-03-11 00:00:00+02:00
+NRP.JO,NEPI Rockcastle N.V.,Real Estate,Real Estate - Diversified,96550879232,13585.0,1889715,2026-03-11 00:00:00+02:00
+PPE.JO,Purple Group Ltd,Financial Services,Financial Conglomerates,2883655424,202.0,285704,2026-03-11 00:00:00+02:00
+QLT.JO,Quilter plc,Financial Services,Asset Management,55451332608,3976.0,612330,2026-03-11 00:00:00+02:00
+RNI.JO,Reinet Investments S.C.A,Financial Services,Asset Management,101541117952,53519.0,277080,2026-03-11 00:00:00+02:00
+SAC.JO,SA Corp Real Estate Ltd,Real Estate,REIT - Diversified,9257166848,338.0,2454266,2026-03-11 00:00:00+02:00
+SEA.JO,Spear REIT Limited,Real Estate,REIT - Diversified,5040190464,1225.0,102350,2026-03-11 00:00:00+02:00
+SHC.JO,Shaftesbury Capital plc,Real Estate,REIT - Retail,55069413376,3012.0,464225,2026-03-11 00:00:00+02:00
+SNT.JO,Santam Limited,Financial Services,Insurance - Specialty,43989499904,40304.0,62728,2026-03-11 00:00:00+02:00
+TKG.JO,Telkom SA SOC Ltd,Communication Services,Telecom Services,28719765504,5834.0,762358,2026-03-11 00:00:00+02:00
+VUN.JO,Vunani Ltd,Financial Services,Capital Markets,370050144,230.0,2081,2026-03-10 00:00:00+02:00
