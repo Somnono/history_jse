@@ -51,11 +51,7 @@ def market_overview(prices):
 
 def top_companies(prices, companies):
 
-    latest = prices.sort_values("Date").groupby("Ticker").last().reset_index()
-
-    merged = latest.merge(companies, on="Ticker", how="left")
-
-    merged = merged.sort_values("MarketCap", ascending=False)
+    merged = companies.sort_values("MarketCap", ascending=False)
 
     top = merged.head(10)
 
@@ -66,7 +62,6 @@ def top_companies(prices, companies):
     <th>Ticker</th>
     <th>Company</th>
     <th>Sector</th>
-    <th>Close</th>
     <th>Market Cap (ZAR)</th>
     </tr>
     """
@@ -80,7 +75,6 @@ def top_companies(prices, companies):
         <td>{row['Ticker']}</td>
         <td>{row['Company']}</td>
         <td>{row['Sector']}</td>
-        <td>{round(row['Close'],2)}</td>
         <td>{mc}</td>
         </tr>
         """
@@ -92,31 +86,29 @@ def top_companies(prices, companies):
 
 def sector_leaders(prices, companies):
 
-    latest = prices.sort_values("Date").groupby("Ticker").last().reset_index()
-
-    merged = latest.merge(companies, on="Ticker", how="left")
-
-    sector_top = merged.sort_values("Close", ascending=False).groupby("Sector").head(1)
+    sector_top = companies.sort_values("MarketCap", ascending=False).groupby("Sector").head(1)
 
     table = """
-    <h2>Top Stock per Sector</h2>
+    <h2>Top Company per Sector</h2>
     <table>
     <tr>
     <th>Sector</th>
     <th>Ticker</th>
     <th>Company</th>
-    <th>Price</th>
+    <th>Market Cap</th>
     </tr>
     """
 
     for _, row in sector_top.iterrows():
+
+        mc = f"{int(row['MarketCap']):,}" if pd.notnull(row["MarketCap"]) else ""
 
         table += f"""
         <tr>
         <td>{row['Sector']}</td>
         <td>{row['Ticker']}</td>
         <td>{row['Company']}</td>
-        <td>{round(row['Close'],2)}</td>
+        <td>{mc}</td>
         </tr>
         """
 
