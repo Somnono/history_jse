@@ -14,16 +14,15 @@ def load_data():
     prices = df
     companies = df[["Ticker","Company","Sector","MarketCap"]].drop_duplicates()
 
-    prices["Date"] = pd.to_datetime(prices["Date"])
+    
 
     return prices, companies
 
 
 def market_overview(prices):
 
-    latest_date = prices["Date"].max()
-
-    latest = prices[prices["Date"] == latest_date]
+    latest = prices
+    latest_date = "Latest Dataset"
 
     avg_close = round(latest["Close"].mean(), 2)
     total_volume = int(latest["Volume"].sum())
