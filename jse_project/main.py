@@ -9,8 +9,10 @@ DATA_PATH = "data"
 
 def load_data():
 
-    prices = pd.read_csv(os.path.join(DATA_PATH, "jse_prices.csv"))
-    companies = pd.read_csv(os.path.join(DATA_PATH, "jse_companies.csv"))
+    df = pd.read_csv(os.path.join(DATA_PATH, "jse_universe.csv"))
+
+    prices = df
+    companies = df[["Ticker","Company","Sector","MarketCap"]].drop_duplicates()
 
     prices["Date"] = pd.to_datetime(prices["Date"])
 
