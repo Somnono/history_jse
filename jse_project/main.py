@@ -9,21 +9,21 @@ DATA_PATH = "data"
 
 def load_data():
 
-    df = pd.read_csv(os.path.join(DATA_PATH, "jse_universe.csv"))
+    companies = pd.read_csv(os.path.join(DATA_PATH, "jse_universe.csv"))
 
-    prices = df
-    companies = df[["Ticker","Company","Sector","MarketCap"]].drop_duplicates()
-
-    
+    try:
+        prices = pd.read_csv(os.path.join(DATA_PATH, "jse_prices.csv"))
+    except:
+        prices = pd.DataFrame()
 
     return prices, companies
 
 
-def market_overview(prices):
+def market_overview(companies):
 
-    total_stocks = prices["Ticker"].nunique()
-    total_sectors = prices["Sector"].nunique()
-    total_marketcap = int(prices["MarketCap"].sum())
+    total_stocks = companies["Ticker"].nunique()
+    total_sectors = companies["Sector"].nunique()
+    total_marketcap = int(companies["MarketCap"].sum())
 
     html = f"""
     <div class="overview">
@@ -51,17 +51,23 @@ def market_overview(prices):
 
 def top_companies(prices, companies):
 
-    # Get latest closing price for each ticker
-    latest_prices = prices.sort_values("Date").groupby("Ticker").last().reset_index()
+    df = companies.copy()
 
-    # Merge company info with latest prices
-    df = companies.merge(
-        latest_prices[["Ticker", "Close"]],
-        on="Ticker",
-        how="left"
-    )
+    if not prices.empty and "Date" in prices.columns:
 
-    # Sort by market cap
+        latest_prices = (
+            prices.sort_values("Date")
+            .groupby("Ticker")
+            .last()
+            .reset_index()[["Ticker", "Close"]]
+        )
+
+        df = df.merge(latest_prices, on="Ticker", how="left")
+
+    else:
+
+        df["Close"] = None
+
     top_market = df.sort_values("MarketCap", ascending=False).head(10)
 
     html = """
@@ -77,14 +83,17 @@ def top_companies(prices, companies):
     """
 
     for _, row in top_market.iterrows():
-        close_price = row["Close"] if not pd.isna(row["Close"]) else 0
+
+        close_price = (
+            f"{row['Close']:.2f}" if pd.notna(row["Close"]) else "-"
+        )
 
         html += f"""
         <tr>
             <td>{row['Ticker']}</td>
             <td>{row['Company']}</td>
             <td>{row['Sector']}</td>
-            <td>{close_price:.2f}</td>
+            <td>{close_price}</td>
             <td>{int(row['MarketCap']):,}</td>
         </tr>
         """
@@ -100,7 +109,7 @@ def sector_leaders(companies):
 
     html = "<h2>Top 10 Companies per Sector</h2>"
 
-    sectors = df["Sector"].dropna().unique()
+    sectors = sorted(df["Sector"].dropna().unique())
 
     for sector in sectors:
 
@@ -121,6 +130,7 @@ def sector_leaders(companies):
         """
 
         for _, row in top_sector.iterrows():
+
             html += f"""
             <tr>
                 <td>{row['Ticker']}</td>
@@ -139,7 +149,7 @@ def home():
 
     prices, companies = load_data()
 
-    overview_html = market_overview(prices)
+    overview_html = market_overview(companies)
     companies_html = top_companies(prices, companies)
     sector_html = sector_leaders(companies)
 
