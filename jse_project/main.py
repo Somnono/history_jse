@@ -14,31 +14,32 @@ def load_data():
 
     companies_path = os.path.join(DATA_PATH, "jse_universe.csv")
     prices_path = os.path.join(DATA_PATH, "jse_prices.csv")
+    splits_path = os.path.join(DATA_PATH, "jse_splits.csv")
 
-    # Load companies
     try:
         companies = pd.read_csv(companies_path)
-    except Exception:
-        companies = pd.DataFrame(
-            columns=["Ticker", "Company", "Sector", "MarketCap"]
-        )
+    except:
+        companies = pd.DataFrame(columns=["Ticker","Company","Sector","MarketCap"])
 
-    # Load prices
     try:
         prices = pd.read_csv(prices_path)
-    except Exception:
-        prices = pd.DataFrame(columns=["Ticker", "Date", "Close"])
+    except:
+        prices = pd.DataFrame(columns=["Ticker","Date","Close"])
 
-    return prices, companies
+    try:
+        splits = pd.read_csv(splits_path)
+    except:
+        splits = pd.DataFrame(columns=["Ticker","Company","SplitDate","SplitRatio"])
+
+    return prices, companies, splits
 
 
 # ---------------------------------
-# Market Overview
+# Market overview
 # ---------------------------------
 def market_overview(companies):
 
     try:
-
         total_stocks = companies["Ticker"].nunique()
         total_sectors = companies["Sector"].nunique()
 
@@ -48,8 +49,7 @@ def market_overview(companies):
 
         total_marketcap = int(companies["MarketCap"].sum())
 
-    except Exception:
-
+    except:
         total_stocks = 0
         total_sectors = 0
         total_marketcap = 0
@@ -79,65 +79,83 @@ def market_overview(companies):
 
 
 # ---------------------------------
-# Top companies
+# Latest daily prices
 # ---------------------------------
-def top_companies(prices, companies):
+def latest_prices_table(prices):
 
-    df = companies.copy()
+    html = "<h2>Latest Daily Prices</h2>"
+
+    if prices.empty:
+        return html + "<p>No price data available.</p>"
 
     try:
 
-        if not prices.empty:
+        prices["Date"] = pd.to_datetime(prices["Date"], errors="coerce")
 
-            if "Date" in prices.columns:
-                prices["Date"] = pd.to_datetime(prices["Date"], errors="coerce")
+        latest = (
+            prices.sort_values("Date")
+            .groupby("Ticker")
+            .last()
+            .reset_index()[["Ticker","Date","Close"]]
+        )
 
-            latest_prices = (
-                prices.sort_values("Date")
-                .groupby("Ticker")
-                .last()
-                .reset_index()[["Ticker", "Close"]]
-            )
+        latest = latest.sort_values("Close", ascending=False).head(15)
 
-            df = df.merge(latest_prices, on="Ticker", how="left")
-
-        else:
-            df["Close"] = None
-
-    except Exception:
-        df["Close"] = None
-
-    df["MarketCap"] = pd.to_numeric(df.get("MarketCap", 0), errors="coerce").fillna(0)
-
-    top_market = df.sort_values("MarketCap", ascending=False).head(10)
-
-    html = """
-    <h2>Top 10 Companies by Market Capitalisation</h2>
-    <table>
+        html += """
+        <table>
         <tr>
-            <th>Ticker</th>
-            <th>Company</th>
-            <th>Sector</th>
-            <th>Close (ZAR)</th>
-            <th>Market Cap (ZAR)</th>
+        <th>Ticker</th>
+        <th>Date</th>
+        <th>Close (ZAR)</th>
         </tr>
+        """
+
+        for _, row in latest.iterrows():
+
+            html += f"""
+            <tr>
+            <td>{row['Ticker']}</td>
+            <td>{row['Date'].date()}</td>
+            <td>{row['Close']:.2f}</td>
+            </tr>
+            """
+
+        html += "</table>"
+
+    except:
+        html += "<p>Price data could not be processed.</p>"
+
+    return html
+
+
+# ---------------------------------
+# Stock splits table
+# ---------------------------------
+def stock_splits_table(splits):
+
+    html = "<h2>Historical Stock Splits</h2>"
+
+    if splits.empty:
+        return html + "<p>No stock split data available.</p>"
+
+    html += """
+    <table>
+    <tr>
+    <th>Ticker</th>
+    <th>Company</th>
+    <th>Split Date</th>
+    <th>Ratio</th>
+    </tr>
     """
 
-    for _, row in top_market.iterrows():
-
-        close_price = "-"
-        if pd.notna(row.get("Close")):
-            close_price = f"{row['Close']:.2f}"
-
-        marketcap = int(row.get("MarketCap", 0))
+    for _, row in splits.iterrows():
 
         html += f"""
         <tr>
-            <td>{row.get('Ticker','')}</td>
-            <td>{row.get('Company','')}</td>
-            <td>{row.get('Sector','')}</td>
-            <td>{close_price}</td>
-            <td>{marketcap:,}</td>
+        <td>{row.get('Ticker','')}</td>
+        <td>{row.get('Company','')}</td>
+        <td>{row.get('SplitDate','')}</td>
+        <td>{row.get('SplitRatio','')}</td>
         </tr>
         """
 
@@ -147,55 +165,41 @@ def top_companies(prices, companies):
 
 
 # ---------------------------------
-# Sector leaders
+# Top companies
 # ---------------------------------
-def sector_leaders(companies):
+def top_companies(companies):
 
     df = companies.copy()
 
     df["MarketCap"] = pd.to_numeric(
-        df.get("MarketCap", 0), errors="coerce"
+        df.get("MarketCap",0), errors="coerce"
     ).fillna(0)
 
-    html = "<h2>Top 10 Companies per Sector</h2>"
+    top_market = df.sort_values("MarketCap", ascending=False).head(10)
 
-    try:
-        sectors = sorted(df["Sector"].dropna().unique())
-    except Exception:
-        sectors = []
+    html = """
+    <h2>Top 10 Companies by Market Capitalisation</h2>
+    <table>
+    <tr>
+    <th>Ticker</th>
+    <th>Company</th>
+    <th>Sector</th>
+    <th>Market Cap (ZAR)</th>
+    </tr>
+    """
 
-    for sector in sectors:
+    for _, row in top_market.iterrows():
 
-        sector_df = df[df["Sector"] == sector]
-
-        top_sector = sector_df.sort_values(
-            "MarketCap", ascending=False
-        ).head(10)
-
-        html += f"<h3>{sector}</h3>"
-
-        html += """
-        <table>
-            <tr>
-                <th>Ticker</th>
-                <th>Company</th>
-                <th>Market Cap</th>
-            </tr>
+        html += f"""
+        <tr>
+        <td>{row.get('Ticker','')}</td>
+        <td>{row.get('Company','')}</td>
+        <td>{row.get('Sector','')}</td>
+        <td>{int(row.get('MarketCap',0)):,}</td>
+        </tr>
         """
 
-        for _, row in top_sector.iterrows():
-
-            marketcap = int(row.get("MarketCap", 0))
-
-            html += f"""
-            <tr>
-                <td>{row.get('Ticker','')}</td>
-                <td>{row.get('Company','')}</td>
-                <td>{marketcap:,}</td>
-            </tr>
-            """
-
-        html += "</table>"
+    html += "</table>"
 
     return html
 
@@ -206,17 +210,12 @@ def sector_leaders(companies):
 @app.route("/")
 def home():
 
-    try:
+    prices, companies, splits = load_data()
 
-        prices, companies = load_data()
-
-        overview_html = market_overview(companies)
-        companies_html = top_companies(prices, companies)
-        sector_html = sector_leaders(companies)
-
-    except Exception as e:
-
-        return f"<h1>Application Error</h1><p>{e}</p>"
+    overview_html = market_overview(companies)
+    prices_html = latest_prices_table(prices)
+    companies_html = top_companies(companies)
+    splits_html = stock_splits_table(splits)
 
     html = f"""
 <!DOCTYPE html>
@@ -311,9 +310,11 @@ Historical equity dataset built from Yahoo Finance for Johannesburg Stock Exchan
 
 {overview_html}
 
+{prices_html}
+
 {companies_html}
 
-{sector_html}
+{splits_html}
 
 <div class="footer">
 Data Source: Yahoo Finance<br>
@@ -329,10 +330,7 @@ Research Project: JSE Sector & Market Capitalisation Analysis
     return html
 
 
-# ---------------------------------
-# Run server
-# ---------------------------------
 if __name__ == "__main__":
 
-    port = int(os.environ.get("PORT", 10000))
+    port = int(os.environ.get("PORT",10000))
     app.run(host="0.0.0.0", port=port)
