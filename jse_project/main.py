@@ -129,7 +129,7 @@ def home():
 
     overview_html = market_overview(prices)
     companies_html = top_companies(prices, companies)
-    sector_html = sector_leaders(prices, companies)
+    sector_html = sector_leaders(companies)
 
     html = f"""
 <!DOCTYPE html>
