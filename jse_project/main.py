@@ -7,39 +7,52 @@ app = Flask(__name__)
 DATA_PATH = "data"
 
 
-# -----------------------------
+# ---------------------------------
 # Load datasets safely
-# -----------------------------
+# ---------------------------------
 def load_data():
 
     companies_path = os.path.join(DATA_PATH, "jse_universe.csv")
     prices_path = os.path.join(DATA_PATH, "jse_prices.csv")
 
     # Load companies
-    companies = pd.read_csv(companies_path)
+    try:
+        companies = pd.read_csv(companies_path)
+    except Exception:
+        companies = pd.DataFrame(
+            columns=["Ticker", "Company", "Sector", "MarketCap"]
+        )
 
-    # Load prices safely
-    if os.path.exists(prices_path) and os.path.getsize(prices_path) > 0:
+    # Load prices
+    try:
         prices = pd.read_csv(prices_path)
-    else:
+    except Exception:
         prices = pd.DataFrame(columns=["Ticker", "Date", "Close"])
 
     return prices, companies
 
 
-# -----------------------------
+# ---------------------------------
 # Market Overview
-# -----------------------------
+# ---------------------------------
 def market_overview(companies):
 
-    total_stocks = companies["Ticker"].nunique()
-    total_sectors = companies["Sector"].nunique()
+    try:
 
-    marketcap_series = pd.to_numeric(
-        companies["MarketCap"], errors="coerce"
-    ).fillna(0)
+        total_stocks = companies["Ticker"].nunique()
+        total_sectors = companies["Sector"].nunique()
 
-    total_marketcap = int(marketcap_series.sum())
+        companies["MarketCap"] = pd.to_numeric(
+            companies["MarketCap"], errors="coerce"
+        ).fillna(0)
+
+        total_marketcap = int(companies["MarketCap"].sum())
+
+    except Exception:
+
+        total_stocks = 0
+        total_sectors = 0
+        total_marketcap = 0
 
     html = f"""
     <div class="overview">
@@ -65,31 +78,36 @@ def market_overview(companies):
     return html
 
 
-# -----------------------------
-# Top companies by market cap
-# -----------------------------
+# ---------------------------------
+# Top companies
+# ---------------------------------
 def top_companies(prices, companies):
 
     df = companies.copy()
 
-    if not prices.empty and {"Ticker", "Date", "Close"}.issubset(prices.columns):
+    try:
 
-        prices["Date"] = pd.to_datetime(prices["Date"], errors="coerce")
+        if not prices.empty:
 
-        latest_prices = (
-            prices.sort_values("Date")
-            .groupby("Ticker")
-            .last()
-            .reset_index()[["Ticker", "Close"]]
-        )
+            if "Date" in prices.columns:
+                prices["Date"] = pd.to_datetime(prices["Date"], errors="coerce")
 
-        df = df.merge(latest_prices, on="Ticker", how="left")
+            latest_prices = (
+                prices.sort_values("Date")
+                .groupby("Ticker")
+                .last()
+                .reset_index()[["Ticker", "Close"]]
+            )
 
-    else:
+            df = df.merge(latest_prices, on="Ticker", how="left")
 
+        else:
+            df["Close"] = None
+
+    except Exception:
         df["Close"] = None
 
-    df["MarketCap"] = pd.to_numeric(df["MarketCap"], errors="coerce").fillna(0)
+    df["MarketCap"] = pd.to_numeric(df.get("MarketCap", 0), errors="coerce").fillna(0)
 
     top_market = df.sort_values("MarketCap", ascending=False).head(10)
 
@@ -108,16 +126,16 @@ def top_companies(prices, companies):
     for _, row in top_market.iterrows():
 
         close_price = "-"
-        if pd.notna(row["Close"]):
+        if pd.notna(row.get("Close")):
             close_price = f"{row['Close']:.2f}"
 
-        marketcap = int(row["MarketCap"])
+        marketcap = int(row.get("MarketCap", 0))
 
         html += f"""
         <tr>
-            <td>{row['Ticker']}</td>
-            <td>{row['Company']}</td>
-            <td>{row['Sector']}</td>
+            <td>{row.get('Ticker','')}</td>
+            <td>{row.get('Company','')}</td>
+            <td>{row.get('Sector','')}</td>
             <td>{close_price}</td>
             <td>{marketcap:,}</td>
         </tr>
@@ -128,18 +146,23 @@ def top_companies(prices, companies):
     return html
 
 
-# -----------------------------
-# Sector Leaders
-# -----------------------------
+# ---------------------------------
+# Sector leaders
+# ---------------------------------
 def sector_leaders(companies):
 
     df = companies.copy()
 
-    df["MarketCap"] = pd.to_numeric(df["MarketCap"], errors="coerce").fillna(0)
+    df["MarketCap"] = pd.to_numeric(
+        df.get("MarketCap", 0), errors="coerce"
+    ).fillna(0)
 
     html = "<h2>Top 10 Companies per Sector</h2>"
 
-    sectors = sorted(df["Sector"].dropna().unique())
+    try:
+        sectors = sorted(df["Sector"].dropna().unique())
+    except Exception:
+        sectors = []
 
     for sector in sectors:
 
@@ -162,12 +185,12 @@ def sector_leaders(companies):
 
         for _, row in top_sector.iterrows():
 
-            marketcap = int(row["MarketCap"])
+            marketcap = int(row.get("MarketCap", 0))
 
             html += f"""
             <tr>
-                <td>{row['Ticker']}</td>
-                <td>{row['Company']}</td>
+                <td>{row.get('Ticker','')}</td>
+                <td>{row.get('Company','')}</td>
                 <td>{marketcap:,}</td>
             </tr>
             """
@@ -177,24 +200,29 @@ def sector_leaders(companies):
     return html
 
 
-# -----------------------------
-# Home Page
-# -----------------------------
+# ---------------------------------
+# Home route
+# ---------------------------------
 @app.route("/")
 def home():
 
-    prices, companies = load_data()
+    try:
 
-    overview_html = market_overview(companies)
-    companies_html = top_companies(prices, companies)
-    sector_html = sector_leaders(companies)
+        prices, companies = load_data()
+
+        overview_html = market_overview(companies)
+        companies_html = top_companies(prices, companies)
+        sector_html = sector_leaders(companies)
+
+    except Exception as e:
+
+        return f"<h1>Application Error</h1><p>{e}</p>"
 
     html = f"""
 <!DOCTYPE html>
 <html>
 
 <head>
-
 <title>JSE Market Research Dashboard</title>
 
 <style>
@@ -214,7 +242,6 @@ margin:auto;
 h1 {{
 text-align:center;
 color:#1f2d3d;
-margin-bottom:10px;
 }}
 
 .subtitle {{
@@ -270,7 +297,6 @@ color:#666;
 }}
 
 </style>
-
 </head>
 
 <body>
@@ -290,25 +316,22 @@ Historical equity dataset built from Yahoo Finance for Johannesburg Stock Exchan
 {sector_html}
 
 <div class="footer">
-
 Data Source: Yahoo Finance<br>
 Research Project: JSE Sector & Market Capitalisation Analysis
-
 </div>
 
 </div>
 
 </body>
-
 </html>
 """
 
     return html
 
 
-# -----------------------------
-# Run app
-# -----------------------------
+# ---------------------------------
+# Run server
+# ---------------------------------
 if __name__ == "__main__":
 
     port = int(os.environ.get("PORT", 10000))
