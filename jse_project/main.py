@@ -51,9 +51,17 @@ def market_overview(prices):
 
 def top_companies(prices, companies):
 
-    df = companies.copy()
+    # Get latest closing price for each ticker
+    latest_prices = prices.sort_values("Date").groupby("Ticker").last().reset_index()
 
-    # Sort entire market by market cap
+    # Merge company info with latest prices
+    df = companies.merge(
+        latest_prices[["Ticker", "Close"]],
+        on="Ticker",
+        how="left"
+    )
+
+    # Sort by market cap
     top_market = df.sort_values("MarketCap", ascending=False).head(10)
 
     html = """
@@ -63,16 +71,20 @@ def top_companies(prices, companies):
             <th>Ticker</th>
             <th>Company</th>
             <th>Sector</th>
+            <th>Close (ZAR)</th>
             <th>Market Cap (ZAR)</th>
         </tr>
     """
 
     for _, row in top_market.iterrows():
+        close_price = row["Close"] if not pd.isna(row["Close"]) else 0
+
         html += f"""
         <tr>
             <td>{row['Ticker']}</td>
             <td>{row['Company']}</td>
             <td>{row['Sector']}</td>
+            <td>{close_price:.2f}</td>
             <td>{int(row['MarketCap']):,}</td>
         </tr>
         """
