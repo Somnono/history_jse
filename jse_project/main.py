@@ -7,23 +7,39 @@ app = Flask(__name__)
 DATA_PATH = "data"
 
 
+# -----------------------------
+# Load datasets safely
+# -----------------------------
 def load_data():
 
-    companies = pd.read_csv(os.path.join(DATA_PATH, "jse_universe.csv"))
+    companies_path = os.path.join(DATA_PATH, "jse_universe.csv")
+    prices_path = os.path.join(DATA_PATH, "jse_prices.csv")
 
-    try:
-        prices = pd.read_csv(os.path.join(DATA_PATH, "jse_prices.csv"))
-    except:
-        prices = pd.DataFrame()
+    # Load companies
+    companies = pd.read_csv(companies_path)
+
+    # Load prices safely
+    if os.path.exists(prices_path) and os.path.getsize(prices_path) > 0:
+        prices = pd.read_csv(prices_path)
+    else:
+        prices = pd.DataFrame(columns=["Ticker", "Date", "Close"])
 
     return prices, companies
 
 
+# -----------------------------
+# Market Overview
+# -----------------------------
 def market_overview(companies):
 
     total_stocks = companies["Ticker"].nunique()
     total_sectors = companies["Sector"].nunique()
-    total_marketcap = int(companies["MarketCap"].sum())
+
+    marketcap_series = pd.to_numeric(
+        companies["MarketCap"], errors="coerce"
+    ).fillna(0)
+
+    total_marketcap = int(marketcap_series.sum())
 
     html = f"""
     <div class="overview">
@@ -49,11 +65,16 @@ def market_overview(companies):
     return html
 
 
+# -----------------------------
+# Top companies by market cap
+# -----------------------------
 def top_companies(prices, companies):
 
     df = companies.copy()
 
-    if not prices.empty and "Date" in prices.columns:
+    if not prices.empty and {"Ticker", "Date", "Close"}.issubset(prices.columns):
+
+        prices["Date"] = pd.to_datetime(prices["Date"], errors="coerce")
 
         latest_prices = (
             prices.sort_values("Date")
@@ -67,6 +88,8 @@ def top_companies(prices, companies):
     else:
 
         df["Close"] = None
+
+    df["MarketCap"] = pd.to_numeric(df["MarketCap"], errors="coerce").fillna(0)
 
     top_market = df.sort_values("MarketCap", ascending=False).head(10)
 
@@ -84,9 +107,11 @@ def top_companies(prices, companies):
 
     for _, row in top_market.iterrows():
 
-        close_price = (
-            f"{row['Close']:.2f}" if pd.notna(row["Close"]) else "-"
-        )
+        close_price = "-"
+        if pd.notna(row["Close"]):
+            close_price = f"{row['Close']:.2f}"
+
+        marketcap = int(row["MarketCap"])
 
         html += f"""
         <tr>
@@ -94,7 +119,7 @@ def top_companies(prices, companies):
             <td>{row['Company']}</td>
             <td>{row['Sector']}</td>
             <td>{close_price}</td>
-            <td>{int(row['MarketCap']):,}</td>
+            <td>{marketcap:,}</td>
         </tr>
         """
 
@@ -103,9 +128,14 @@ def top_companies(prices, companies):
     return html
 
 
+# -----------------------------
+# Sector Leaders
+# -----------------------------
 def sector_leaders(companies):
 
     df = companies.copy()
+
+    df["MarketCap"] = pd.to_numeric(df["MarketCap"], errors="coerce").fillna(0)
 
     html = "<h2>Top 10 Companies per Sector</h2>"
 
@@ -120,6 +150,7 @@ def sector_leaders(companies):
         ).head(10)
 
         html += f"<h3>{sector}</h3>"
+
         html += """
         <table>
             <tr>
@@ -131,11 +162,13 @@ def sector_leaders(companies):
 
         for _, row in top_sector.iterrows():
 
+            marketcap = int(row["MarketCap"])
+
             html += f"""
             <tr>
                 <td>{row['Ticker']}</td>
                 <td>{row['Company']}</td>
-                <td>{int(row['MarketCap']):,}</td>
+                <td>{marketcap:,}</td>
             </tr>
             """
 
@@ -144,6 +177,9 @@ def sector_leaders(companies):
     return html
 
 
+# -----------------------------
+# Home Page
+# -----------------------------
 @app.route("/")
 def home():
 
@@ -270,6 +306,9 @@ Research Project: JSE Sector & Market Capitalisation Analysis
     return html
 
 
+# -----------------------------
+# Run app
+# -----------------------------
 if __name__ == "__main__":
 
     port = int(os.environ.get("PORT", 10000))
