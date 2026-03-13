@@ -184,10 +184,12 @@ def stock_splits(splits):
 def home():
     try:
         prices, companies, splits = load_data()
+
         overview_html = market_overview(companies)
         top_html = top_companies(prices, companies)
-        sector_html = sector_leaders(companies)
+        sector_html = sector_leaders(prices, companies)
         splits_html = stock_splits(splits)
+
     except Exception as e:
         return f"<h1>Application Error</h1><p>{e}</p>"
 
