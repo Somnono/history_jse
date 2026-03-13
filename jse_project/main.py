@@ -107,24 +107,59 @@ def top_companies(prices, companies):
 # -----------------------------
 # Top 10 per sector
 # -----------------------------
-def sector_leaders(companies):
+def sector_leaders(prices, companies):
+
     df = companies.copy()
     df["MarketCap"] = pd.to_numeric(df.get("MarketCap", 0), errors="coerce").fillna(0)
+
+    # Merge latest prices
+    if not prices.empty and {"Ticker","Date","Close"}.issubset(prices.columns):
+        latest_prices = (
+            prices.sort_values("Date")
+            .groupby("Ticker")
+            .last()
+            .reset_index()[["Ticker","Close"]]
+        )
+
+        df = df.merge(latest_prices, on="Ticker", how="left")
+    else:
+        df["Close"] = None
+
     html = "<h2>Top 10 Companies per Sector</h2>"
 
     sectors = sorted(df["Sector"].dropna().unique()) if not df.empty else []
 
     for sector in sectors:
+
         sector_df = df[df["Sector"] == sector]
         top_sector = sector_df.sort_values("MarketCap", ascending=False).head(10)
 
-        html += f"<h3>{sector}</h3><table><tr><th>Ticker</th><th>Company</th><th>Market Cap</th></tr>"
+        html += f"<h3>{sector}</h3>"
+
+        html += """
+        <table>
+        <tr>
+        <th>Ticker</th>
+        <th>Company</th>
+        <th>Close</th>
+        <th>Market Cap</th>
+        </tr>
+        """
+
         for _, row in top_sector.iterrows():
-            html += f"<tr><td>{row.get('Ticker','')}</td><td>{row.get('Company','')}</td><td>{safe_float_format(row.get('MarketCap'))}</td></tr>"
+
+            html += f"""
+            <tr>
+            <td>{row.get('Ticker','')}</td>
+            <td>{row.get('Company','')}</td>
+            <td>{safe_float_format(row.get('Close'))}</td>
+            <td>{safe_float_format(row.get('MarketCap'))}</td>
+            </tr>
+            """
+
         html += "</table>"
 
     return html
-
 # -----------------------------
 # Stock splits
 # -----------------------------
